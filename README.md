@@ -1,8 +1,8 @@
 # VCamera - Updated and Restored
 
-This repository is a **functional update and restoration** of the original [VCamera by DemonLee0719](https://github.com/DemonLee0719/VCamer), whose latest release was over 2 years ago and is currently **non-functional** in modern environments.
+This repository is a **functional update and restoration** of the original [VCamera by DemonLee0719](https://github.com/DemonLee0719/VCamera), whose latest release was over 2 years ago and is currently **non-functional** in modern environments.
 
-![VCamera Screenshot](https://private-user-images.githubusercontent.com/182799343/453619331-5a066903-ab93-4245-998d-e4327d5385cc.png)
+![VCamera Screenshot](./a.png)
 
 ## 🛠 What is this?
 
@@ -23,7 +23,7 @@ The purpose of this project is to serve as a stable, working base for developers
 
 ## 📂 Related Repositories
 
-- Original (non-functional) repository: [DemonLee0719/VCamer](https://github.com/DemonLee0719/VCamer)
+- Original (non-functional) repository: [DemonLee0719/VCamer](https://github.com/DemonLee0719/VCamera)
 - Previous fork before this update: [andvipgroup/VCamera](https://github.com/andvipgroup/VCamera)
 
 ## 📦 Download
