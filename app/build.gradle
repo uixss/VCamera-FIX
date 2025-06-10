@@ -1,0 +1,110 @@
+plugins {
+    id 'com.android.application'
+    id 'org.jetbrains.kotlin.android'
+}
+
+android {
+    namespace 'virtual.camera.app'
+
+    compileSdk rootProject.ext.compileSdkVersion
+
+    defaultConfig {
+        applicationId rootProject.ext.masterPkg
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.targetSdkVersion
+        versionCode rootProject.ext.versionCode
+        versionName rootProject.ext.versionName
+    }
+
+    buildTypes {
+        debug {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    buildFeatures {
+        viewBinding true
+    }
+
+   kotlinOptions {
+    jvmTarget = '11'
+}
+
+compileOptions {
+    sourceCompatibility JavaVersion.VERSION_11
+    targetCompatibility JavaVersion.VERSION_11
+}
+
+    aaptOptions {
+        cruncherEnabled = false
+    }
+
+    testOptions {
+        unitTests.returnDefaultValues = true
+    }
+
+    lintOptions {
+        checkReleaseBuilds false
+        abortOnError false
+        warningsAsErrors false
+        disable "UnusedResources", 'RestrictedApi'
+        textOutput "stdout"
+        textReport false
+        checkOnly 'NewApi', 'InlinedApi'
+    }
+
+    sourceSets {
+        main {
+            jniLibs.srcDirs = ['libs']
+        }
+    }
+}
+
+ 
+dependencies {
+    implementation fileTree(dir: "libs", include: ["*.jar", "*.aar"])
+
+    // UI & Composición
+    implementation 'com.github.Ferfalk:SimpleSearchView:0.2.0'
+    implementation 'com.tbuonomo:dotsindicator:4.2'
+    implementation 'com.github.Othershe:CornerLabelView:1.0.0'
+    implementation 'com.google.android.material:material:1.3.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
+    implementation 'androidx.recyclerview:recyclerview:1.2.0'
+    implementation 'androidx.viewpager2:viewpager2:1.0.0'
+
+    // Preferencias y lifecycle
+    implementation 'androidx.preference:preference-ktx:1.2.1'
+    implementation 'androidx.activity:activity-ktx:1.2.2'
+    implementation 'androidx.fragment:fragment-ktx:1.3.3'
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.1'
+    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.3.1'
+    implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.3.1'
+    implementation 'androidx.core:core-ktx:1.3.2'
+    implementation 'androidx.appcompat:appcompat:1.3.0-rc01'
+
+    // Corrutinas
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.4.2'
+
+    // Diálogos Material
+    implementation 'com.afollestad.material-dialogs:core:3.3.0'
+    implementation 'com.afollestad.material-dialogs:input:3.3.0'
+
+    // StateView (sustituye correctamente al anterior)
+    implementation 'com.github.nukc:StateView:v3.0.2'
+implementation 'com.github.princekin-f:EasyFloat:2.0.4'
+    // Mapa OSM
+    implementation 'org.osmdroid:osmdroid-android:6.1.11'
+implementation 'com.airbnb.android:lottie:6.1.0'
+
+    // Adaptador RV personalizado
+    implementation 'com.gitee.cbfg5210:RVAdapter:0.3.7'
+
+    // Módulo local
+    implementation project(':opensdk')
+}

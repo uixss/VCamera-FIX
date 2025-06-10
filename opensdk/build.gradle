@@ -1,0 +1,67 @@
+plugins {
+    id 'com.android.library'
+    id 'org.jetbrains.kotlin.android' // solo si usas Kotlin
+}
+
+android {
+    namespace 'com.hack.opensdk'
+    compileSdk rootProject.ext.compileSdkVersion
+
+    buildFeatures {
+        buildConfig true // ✅ Requerido por los buildConfigField
+    }
+
+    defaultConfig {
+        minSdk rootProject.ext.minSdkVersion
+        targetSdk rootProject.ext.targetSdkVersion
+
+        consumerProguardFiles "consumer-rules.pro"
+        buildConfigField "boolean", "localTest", "${rootProject.ext.localTest}"
+        buildConfigField "boolean", "isMasterPkg", "${rootProject.ext.isMasterPkg}"
+        buildConfigField "String", "ENGINE_JAR_NAME", "\"${rootProject.ext.hackJarName}\""
+
+        if (!rootProject.ext.isMasterPkg) {
+            manifestPlaceholders = [masterPkg: "${rootProject.ext.masterPkg}"]
+        }
+    }
+
+    sourceSets {
+        main {
+            java.srcDirs = ['src', "${projectDir}/build/src/main/java"]
+
+            if (rootProject.ext.isMasterPkg) {
+                manifest.srcFile 'src/main/AndroidManifest.xml'
+            } else {
+                manifest.srcFile 'src/main/AndroidManifest_assist.xml'
+            }
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility rootProject.ext.javaVersion
+        targetCompatibility rootProject.ext.javaVersion
+    }
+}
+
+// ✅ Nueva tarea para copiar CmdConstants.java correctamente
+tasks.register("generateConstantJavaFile") {
+    doLast {
+        def source = file("${projectDir}/resources/java/com/hack/opensdk/CmdConstants.java")
+        def destDir = file("${projectDir}/build/src/main/java/com/hack/opensdk")
+        destDir.mkdirs()
+        copy {
+            from source
+            into destDir
+        }
+    }
+}
+
+// Asegurar que la tarea se ejecute antes de compilar
+preBuild.dependsOn(generateConstantJavaFile)
